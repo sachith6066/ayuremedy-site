@@ -606,15 +606,17 @@ p { line-height: 1.65; }
 @media (max-width: 960px) { .steps.ten { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .steps.ten { grid-template-columns: 1fr; } .checks.two { grid-template-columns: 1fr; } }
 
-/* Header: solid white bar; logo and menu share one centre line, no offsets. */
+/* Header: solid white bar, menu centred. The logo's word "AyuRemedy" sits in the lower
+   part of the image (the leaf rises above it), so the logo is lifted until the word, not the
+   image box, lines up with the menu text. The bar is a little taller to give the leaf room. */
 .site-header { background: #fff; backdrop-filter: none; }
-.site-header .wrap { align-items: center; min-height: 76px; padding-block: 0.6rem; }
+.site-header .wrap { align-items: center; min-height: 82px; padding-block: 0.5rem; }
 .brand { display: flex; align-items: center; line-height: 0; }
-.brand .brand-logo { height: 50px; width: auto; }
+.brand .brand-logo { height: 50px; width: auto; transform: translateY(-8px); }
 .nav, .menu summary { transform: none; }
 @media (max-width: 640px) {
-  .site-header .wrap { min-height: 64px; }
-  .brand .brand-logo { height: 40px; }
+  .site-header .wrap { min-height: 66px; }
+  .brand .brand-logo { height: 40px; transform: translateY(-6px); }
 }
 
 /* Google rating */
