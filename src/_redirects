@@ -1,0 +1,6 @@
+# Same rules for Cloudflare Pages / Netlify, if the site moves off cPanel
+/home/            /            301
+/author/*         /about-us/   301
+/feed/            /            301
+/index.php/*      /            301
+/wp-sitemap.xml   /sitemap.xml 301

@@ -1,0 +1,114 @@
+// Clinic & pharmacy hours (IST). Keep in sync with the footer and the schema in build.py.
+var HOURS = { 0: [9, 13], 1: [9, 20], 2: [9, 20], 3: [9, 20], 4: [9, 20], 5: [9, 20], 6: [9, 20] };
+var WHATSAPP = "919448150492";
+
+function istNow() {
+  var parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Kolkata", weekday: "short", hour: "numeric", minute: "numeric", hourCycle: "h23"
+  }).formatToParts(new Date());
+  var get = function (t) { return (parts.find(function (p) { return p.type === t; }) || {}).value; };
+  var days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+  return { day: days[get("weekday")], mins: parseInt(get("hour"), 10) * 60 + parseInt(get("minute"), 10) };
+}
+
+function fmt(h) {
+  var suffix = h >= 12 ? "PM" : "AM";
+  var h12 = h % 12 === 0 ? 12 : h % 12;
+  return h12 + " " + suffix;
+}
+
+function renderStatus() {
+  var els = document.querySelectorAll("[data-open-status]");
+  if (!els.length) return;
+  var now = istNow();
+  var today = HOURS[now.day];
+  var open = now.mins >= today[0] * 60 && now.mins < today[1] * 60;
+  var text;
+  if (open) {
+    text = "Open now, until " + fmt(today[1]);
+  } else if (now.mins < today[0] * 60) {
+    text = "Closed now, opens " + fmt(today[0]) + " today";
+  } else {
+    var next = HOURS[(now.day + 1) % 7];
+    text = "Closed now, opens " + fmt(next[0]) + " tomorrow";
+  }
+  els.forEach(function (el) {
+    el.textContent = text;
+    el.setAttribute("data-open", String(open));
+  });
+}
+
+function initForm() {
+  var form = document.getElementById("visit-form");
+  if (!form) return;
+  var msg = document.getElementById("visit-form-msg");
+  var dateInput = document.getElementById("visit-date");
+  if (dateInput) {
+    var t = new Date();
+    dateInput.min = t.toISOString().slice(0, 10);
+  }
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = form.elements["name"].value.trim();
+    var phone = form.elements["phone"].value.trim();
+    if (!name || phone.replace(/\D/g, "").length < 10) {
+      msg.dataset.state = "error";
+      msg.textContent = "Please add your name and a 10-digit phone number so the clinic can call you back.";
+      return;
+    }
+    var lines = [
+      "Appointment request (from ayuremedy.com)",
+      "Name: " + name,
+      "Phone: " + phone,
+      "Preferred date: " + (form.elements["date"].value || "Any"),
+      "Preferred time: " + form.elements["slot"].value,
+      "Doctor: " + form.elements["doctor"].value,
+      "Best time to call me: " + form.elements["calltime"].value
+    ];
+    var reason = form.elements["reason"].value.trim();
+    if (reason) lines.push("Reason: " + reason);
+    var url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(lines.join("\n"));
+    msg.dataset.state = "";
+    msg.innerHTML = "Your request is ready in WhatsApp. Press send there and the front desk will call you to confirm a time. " +
+      "If WhatsApp did not open, <a href=\"" + url + "\" target=\"_blank\" rel=\"noopener\">open it here</a> or call 080-4854 2888.";
+    window.open(url, "_blank", "noopener");
+  });
+}
+
+function initCopy() {
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var value = btn.getAttribute("data-copy");
+      var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy"; }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(done, function () { btn.textContent = value; });
+      } else {
+        btn.textContent = value;
+      }
+    });
+  });
+}
+
+function markSeason() {
+  var seasons = document.querySelectorAll("#ritu .season");
+  if (!seasons.length) return;
+  var month = parseInt(new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", month: "numeric" }).format(new Date()), 10);
+  seasons.forEach(function (el) {
+    if (el.getAttribute("data-months").split(",").indexOf(String(month)) === -1) return;
+    el.setAttribute("data-current", "true");
+    var note = document.getElementById("ritu-note");
+    if (note) {
+      var name = el.querySelector("h3").textContent;
+      note.insertAdjacentHTML("afterbegin", "It is <strong>" + name + " ritu</strong> now. ");
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  renderStatus();
+  markSeason();
+  initForm();
+  initCopy();
+  var y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+});

@@ -1,0 +1,17 @@
+# ayuremedy.com DNS before go-live (25 Oct 2026 16:17)
+# Nameservers: ns1/ns2.cp-in-11.webhostbox.net (HostGator India / BigRock). Hosting server IP 103.53.42.63
+# To roll back: set GoDaddy nameservers back to ns1.cp-in-11.webhostbox.net and ns2.cp-in-11.webhostbox.net
+
+@            A      103.53.42.63            TTL 14400
+@            TXT    "v=spf1 a mx include:webhostbox.net ~all"
+@            MX     (none - mail is delivered to the @ A record, i.e. the hosting server)
+www          CNAME  ayuremedy.com
+mail         CNAME  ayuremedy.com
+webmail      A      103.53.42.63
+cpanel       A      103.53.42.63
+webdisk      A      103.53.42.63
+ftp          A      103.53.42.63
+cpcalendars  A      103.53.42.63
+cpcontacts   A      103.53.42.63
+default._domainkey TXT (DKIM key, copied in full below)
+"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp39nRHyGztcO3kO8xr1wyiZImTbnd3XijGYIwnn5mTYIJ0MiGkfrU3wXzlr4/3UqC7SySNo8C5Cfh/UkjRXAdsWvHw9TRWOfDM3N/hQuPXzCFSlJSFLmv/KlgwOqKKrFggs3P3pnNU2iRs4xD3NATsWObWAY8+8w8DA9NRCrN22gRZtE+xIwihhmcYCXn8l5V" "BhqbGXNs7mQvXOsZ3cAwlr8S1HlBLzQ990hT/APheKDfa2RhRYpQOV6Sm4nU6sdgPnfx6E5iLS01HFYVtLrmTfjA5rPB/VwHt3SFrr0HUKXr1WjKuEgl9CQFa9AMsRL2KnFWFwE8BwdFrzfxd9WFwIDAQAB;"

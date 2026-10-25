@@ -1,0 +1,28 @@
+# AyurRemedy static site (Apache / cPanel hosting)
+# Every page keeps its old WordPress address, so no page redirects are needed.
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+# Force https and www
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ https://www.ayuremedy.com/$1 [R=301,L]
+
+# Leftover WordPress addresses
+RewriteRule ^home/?$ / [R=301,L]
+RewriteRule ^author/ /about-us/ [R=301,L]
+RewriteRule ^(feed|comments/feed)/?$ / [R=301,L]
+RewriteRule ^index\.php(/.*)?$ / [R=301,L]
+RewriteRule ^wp-sitemap.*\.xml$ /sitemap.xml [R=301,L]
+RewriteRule ^(wp-admin|wp-login\.php|xmlrpc\.php) - [G,L]
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType video/mp4 "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>

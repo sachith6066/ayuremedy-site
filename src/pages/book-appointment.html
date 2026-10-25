@@ -1,0 +1,97 @@
+title: Book Appointment | AyurRemedy Ayurveda Clinic, Ramamurthy Nagar
+description: Book a consultation with Dr Rasmi Johnson or Dr Harshitha Rai at AyurRemedy Ayurveda clinic, Ramamurthy Nagar, Bengaluru. Share your preferred date and time and the clinic will call to confirm.
+path: book-appointment/
+nav: book
+---
+<section class="page-head">
+  <div class="wrap stack">
+    <p class="crumbs"><a href="@/">Home</a> / Book Appointment</p>
+    <h1>Book Appointment</h1>
+    <p class="lede">Share your name, phone number, preferred date and time, and the doctor you would like to see. The clinic will call you to confirm your appointment.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap contact-grid">
+    <form class="form" id="visit-form" novalidate>
+      <h2 id="book" style="font-size:var(--step-2)">Request an appointment</h2>
+      <div class="field-row">
+        <div class="field">
+          <label for="visit-name">Your name</label>
+          <input id="visit-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="visit-phone">Phone number</label>
+          <input id="visit-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="10-digit mobile">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="visit-date">Preferred date</label>
+          <input id="visit-date" name="date" type="date">
+        </div>
+        <div class="field">
+          <label for="visit-slot">Preferred time</label>
+          <select id="visit-slot" name="slot">
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Evening</option>
+            <option>Any time</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="visit-doctor">Doctor</label>
+          <select id="visit-doctor" name="doctor">
+            <option>No preference</option>
+            <option>Dr Rasmi Johnson</option>
+            <option>Dr Harshitha Rai</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="visit-calltime">Best time to call you</label>
+          <select id="visit-calltime" name="calltime">
+            <option>Any time</option>
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Evening</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="visit-reason">Reason for visit <span class="hint">(optional)</span></label>
+        <textarea id="visit-reason" name="reason" placeholder="For example: lower back pain for 3 months"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" type="submit">Send request on WhatsApp</button>
+      </div>
+      <p class="form-msg" id="visit-form-msg" aria-live="polite">Your details go only to the clinic's WhatsApp, and only when you press send.</p>
+    </form>
+
+    <div class="nap">
+      <div class="stack">
+        <p class="eyebrow">Prefer to call?</p>
+        <div class="copy-row"><span>Clinic <a href="tel:+918048542888">080-4854 2888</a></span><button class="copy-btn" type="button" data-copy="08048542888">Copy</button></div>
+        <div class="copy-row"><span>Mobile &amp; WhatsApp <a href="tel:+919448150492">+91 94481 50492</a></span><button class="copy-btn" type="button" data-copy="+919448150492">Copy</button></div>
+        <div class="copy-row"><span>Email <a href="mailto:book@ayuremedy.com">book@ayuremedy.com</a></span></div>
+      </div>
+      <div class="stack">
+        <p class="eyebrow">Doctors' consulting hours</p>
+        <p><strong>Dr Rasmi Johnson</strong></p>
+        <table class="schedule">
+          <tr><th>Mon, Wed, Fri</th><td>10:30 AM – 2:00 PM</td></tr>
+          <tr><th>Tue, Wed, Thu</th><td>5:00 PM – 8:00 PM</td></tr>
+          <tr><th>Saturday</th><td>4:00 PM – 8:00 PM</td></tr>
+        </table>
+        <p><strong>Dr Harshitha Rai</strong></p>
+        <table class="schedule">
+          <tr><th>Mon, Fri</th><td>4:30 PM – 7:30 PM</td></tr>
+          <tr><th>Tue, Thu</th><td>10:30 AM – 1:30 PM</td></tr>
+          <tr><th>Saturday</th><td>11:00 AM – 1:00 PM</td></tr>
+        </table>
+        <p class="small muted">Sundays off. <a href="@/our-doctors/">About our doctors</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
