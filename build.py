@@ -212,6 +212,7 @@ def main():
     shutil.copytree(os.path.join(ROOT, "assets"), os.path.join(OUT, "assets"))
     # Same files, same paths as the old WordPress uploads, so old image links keep working.
     shutil.copytree(os.path.join(ROOT, "wp-content"), os.path.join(OUT, "wp-content"))
+    shutil.copy(os.path.join(ROOT, "src", "favicon.ico"), os.path.join(OUT, "favicon.ico"))
     layout = read(os.path.join(ROOT, "src", "layout.html"))
     urls = []
     pages_dir = os.path.join(ROOT, "src", "pages")
