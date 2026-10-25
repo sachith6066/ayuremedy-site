@@ -589,3 +589,6 @@ p { line-height: 1.65; }
 
 /* Copy buttons: comfortable tap size on phones */
 .copy-btn { min-height: 36px; padding: 0.4rem 0.9rem; }
+
+/* Clean inner-page headers: no watermark */
+.page-head::after { display: none; }
