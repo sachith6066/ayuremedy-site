@@ -654,7 +654,7 @@ p { line-height: 1.65; }
 
 /* Dosha illustrations: a picture panel across the top of each card, letter badge overlapping it */
 .dosha { overflow: hidden; padding-top: 0; }
-.dosha-art { display: block; width: calc(100% + 3rem); max-width: none; height: auto; aspect-ratio: 320 / 170; margin: 0 -1.5rem; }
+.dosha-art { display: block; width: calc(100% + 3rem); max-width: none; height: auto; aspect-ratio: 8 / 3; object-fit: cover; margin: 0 -1.5rem; }
 .dosha .glyph { margin-top: -1.9rem; position: relative; border: 4px solid #fff; width: 3.4rem; height: 3.4rem; box-shadow: 0 6px 14px -8px rgb(0 0 0 / 0.4); }
 /* Footer social icons sit in one row (overrides the footer's stacked list style) */
 .footer-grid .social { display: flex; flex-direction: row; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.75rem; }
