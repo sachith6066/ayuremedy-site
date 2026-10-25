@@ -643,3 +643,10 @@ p { line-height: 1.65; }
 .ig-mark { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; color: #fff; flex: none;
   background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
 .ig-mark svg { width: 34px; height: 34px; }
+.follow-marks { display: flex; gap: 0.5rem; flex: none; }
+.fb-mark { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; color: #fff; background: #1877f2; }
+.fb-mark svg { width: 34px; height: 34px; }
+.ig-band .btn svg { width: 18px; height: 18px; flex: none; }
+.btn-fb { border-color: #1877f2; color: #1877f2; }
+.btn-fb:hover { background: #1877f2; color: #fff; border-color: #1877f2; }
+@media (max-width: 640px) { .ig-band .btn-row, .ig-band .btn { width: 100%; } .follow-marks .ig-mark, .follow-marks .fb-mark { width: 52px; height: 52px; border-radius: 14px; } }
