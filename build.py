@@ -73,6 +73,17 @@ CLINIC = {
     ],
 }
 
+# Tells Google which name to show as the site name in results (it was showing "Ayuremedy").
+WEBSITE = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": SITE + "/#website",
+    "name": "AyurRemedy",
+    "alternateName": ["AyuRemedy", "Ayuremedy", "AyurRemedy Clinic"],
+    "url": SITE + "/",
+    "publisher": {"@id": SITE + "/#clinic"},
+}
+
 # Mirrors the old WordPress menu so every page keeps its address and internal links.
 NAV = [
     ("home", "Home", "@/"),
@@ -193,7 +204,7 @@ def build_page(layout, meta, body):
             menu_parts.append('<a href="{}">{}</a>'.format(href, label))
     menu_parts.append('<a href="@/book-appointment/">Book Appointment</a>')
     nav_html, menu_html = "\n".join(nav_parts), "\n".join(menu_parts)
-    schema = json.dumps(CLINIC, ensure_ascii=False, indent=1)
+    schema = json.dumps([WEBSITE, CLINIC] if path == "" else CLINIC, ensure_ascii=False, indent=1)
     html = (layout
             .replace("{{title}}", meta["title"])
             .replace("{{description}}", meta["description"])
