@@ -154,10 +154,29 @@ function initReels() {
   });
 }
 
+function initRails() {
+  document.querySelectorAll(".reel-rail-wrap").forEach(function (w) {
+    var rail = w.querySelector(".reel-rail"), btns = w.querySelectorAll(".rail-btn");
+    function update() {
+      btns[0].disabled = rail.scrollLeft < 8;
+      btns[1].disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 8;
+    }
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        rail.scrollBy({ left: Number(b.getAttribute("data-dir")) * rail.clientWidth * 0.8, behavior: "smooth" });
+      });
+    });
+    rail.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   renderStatus();
   initTracking();
   initReels();
+  initRails();
   markSeason();
   initForm();
   initCopy();

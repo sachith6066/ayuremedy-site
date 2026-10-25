@@ -671,9 +671,35 @@ p { line-height: 1.65; }
 .reel-len { position: absolute; right: 0.5rem; bottom: 0.5rem; padding: 0.1rem 0.45rem; border-radius: 6px; background: rgb(0 0 0 / 0.65); color: #fff; font-size: 0.78rem; font-weight: 600; }
 .reel-strip { display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(var(--n, 1), minmax(0, 220px)); gap: 1.5rem; align-items: center; justify-content: center; max-width: 880px; margin-inline: auto; }
 .reel-strip > .reel-card { align-self: start; }
-.doshas + .reel-strip { margin-top: 2.5rem; }
 @media (max-width: 640px) {
   .reels { grid-template-columns: 1fr 1fr; gap: 0.9rem; }
   .reel-strip { grid-template-columns: repeat(var(--n, 1), minmax(0, 200px)); }
   .reel-strip > .stack { grid-column: 1 / -1; }
 }
+/* Home: swipeable row of doctor videos (arrows wired in site.js initRails) */
+.reel-rail-wrap { margin-top: 3rem; }
+.rail-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem 1.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.rail-head .stack { max-width: 34rem; }
+.rail-head h3 { font-size: var(--step-2); }
+.rail-nav { display: flex; align-items: center; gap: 0.5rem; }
+.rail-btn { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 1.6rem; line-height: 1; display: grid; place-items: center; padding-bottom: 0.15rem; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+.rail-btn:hover:not(:disabled) { border-color: var(--saffron); color: var(--saffron); }
+.rail-btn:disabled { opacity: 0.35; cursor: default; }
+.rail-all { margin-left: 0.5rem; font-weight: 600; white-space: nowrap; }
+.reel-rail { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 5 * 1.25rem) / 5.4); gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; padding: 0.4rem 0.2rem 0.75rem; }
+.reel-rail::-webkit-scrollbar { display: none; }
+.reel-rail:focus-visible { outline: 3px solid var(--saffron); outline-offset: 4px; border-radius: var(--radius); }
+.reel-rail > .reel-card { scroll-snap-align: start; }
+.reel { box-shadow: 0 10px 24px -16px rgb(0 0 0 / 0.55); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.reel:hover { transform: translateY(-4px); box-shadow: 0 18px 30px -18px rgb(0 0 0 / 0.6); }
+.reel::after { content: ""; position: absolute; inset: auto 0 0; height: 35%; background: linear-gradient(transparent, rgb(0 0 0 / 0.55)); pointer-events: none; }
+.reel-tag, .reel-len { z-index: 1; }
+.reel-tag { position: absolute; left: 0.5rem; bottom: 0.5rem; padding: 0.15rem 0.55rem; border-radius: 999px; background: var(--paper); color: var(--leaf-deep); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+@media (max-width: 960px) { .reel-rail { grid-auto-columns: calc((100% - 2 * 1.25rem) / 3.3); } }
+@media (max-width: 640px) {
+  .reel-rail { grid-auto-columns: 44%; gap: 0.9rem; }
+  .rail-btn { display: none; }
+  .rail-all { margin-left: 0; }
+}
+/* Dosha initials: a classical serif italic, subset to just V, P and K (layout.html) */
+.dosha .glyph { font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif; font-style: italic; font-weight: 600; font-size: 2.15rem; line-height: 1; padding: 0 0.12rem 0.1rem 0; background-image: radial-gradient(circle at 30% 25%, rgb(255 255 255 / 0.28), transparent 60%); text-shadow: 0 1px 2px rgb(0 0 0 / 0.18); }
