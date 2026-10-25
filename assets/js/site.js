@@ -104,8 +104,25 @@ function markSeason() {
   });
 }
 
+// Facebook videos are links to the video until tapped; then Facebook's player replaces the poster.
+function initReels() {
+  document.querySelectorAll("a.reel[data-fb]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var f = document.createElement("iframe");
+      f.className = "reel-frame";
+      f.src = "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(a.href) + "&show_text=false&width=360&autoplay=true";
+      f.title = a.getAttribute("aria-label").replace("Play video: ", "");
+      f.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
+      f.allowFullscreen = true;
+      a.replaceWith(f);
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   renderStatus();
+  initReels();
   markSeason();
   initForm();
   initCopy();
