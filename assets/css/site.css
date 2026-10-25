@@ -605,3 +605,9 @@ p { line-height: 1.65; }
 .page-head .tags { margin-top: 0.25rem; }
 @media (max-width: 960px) { .steps.ten { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .steps.ten { grid-template-columns: 1fr; } .checks.two { grid-template-columns: 1fr; } }
+
+/* Logo: tightly cropped artwork. The wordmark sits in the lower part of the image
+   (the leaf rises above it), so lift it slightly to line the word up with the menu text. */
+.brand { align-self: center; line-height: 0; }
+.brand .brand-logo { height: 56px; width: auto; transform: translateY(-6px); }
+@media (max-width: 640px) { .brand .brand-logo { height: 42px; transform: translateY(-4px); } }
