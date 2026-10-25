@@ -707,7 +707,8 @@ p { line-height: 1.65; }
 .creds { background: #fff; }
 .creds .wrap { display: grid; gap: 1.6rem; padding-block: 3rem 2.5rem; }
 .creds h2 { text-align: center; font-size: var(--step-2); }
-.creds-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.creds-grid { --cols: 4; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+.creds-grid > li { flex: 0 0 calc((100% - (var(--cols) - 1) * 1rem) / var(--cols)); min-width: 0; }
 .creds-grid a { display: flex; flex-direction: column; gap: 0.3rem; height: 100%; padding: 1.2rem 1.25rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
 .creds-grid a:hover { border-color: color-mix(in srgb, var(--saffron) 45%, var(--line)); box-shadow: 0 14px 28px -20px rgb(0 0 0 / 0.35); transform: translateY(-2px); }
 .creds-grid a:focus-visible { outline: 3px solid var(--saffron); outline-offset: 3px; }
@@ -716,10 +717,12 @@ p { line-height: 1.65; }
 .cred-place { color: var(--ink-soft); font-size: 0.9rem; }
 .cred-who { display: flex; align-items: center; gap: 0.5rem; margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--line); color: var(--leaf); font-size: 0.86rem; font-weight: 600; }
 .cred-who img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; flex: none; }
-@media (max-width: 960px) { .creds-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1100px) { .creds-grid { --cols: 3; } }
+@media (max-width: 760px) { .creds-grid { --cols: 2; } }
 @media (max-width: 560px) {
   .creds .wrap { padding-block: 2.25rem 1.75rem; }
   .creds-grid { gap: 0.7rem; }
+  .creds-grid > li { flex-basis: calc((100% - 0.7rem) / 2); }
   .creds-grid a { padding: 1rem 0.9rem 0.85rem; }
   .creds-grid strong { font-size: 0.95rem; }
   .cred-place, .cred-who { font-size: 0.8rem; }
