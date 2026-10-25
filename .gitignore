@@ -3,3 +3,5 @@ public/
 preview/
 _originals/
 __pycache__/
+docs/doctors-to-confirm.md
+docs/*.zone*
