@@ -708,3 +708,16 @@ p { line-height: 1.65; }
 .videos.three { grid-template-columns: repeat(3, 1fr); }
 @media (max-width: 960px) { .videos.three { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .videos.three { grid-template-columns: 1fr; } }
+/* Video gallery: stroke rehabilitation stages (portrait videos, labelled by stage) */
+.stages { display: grid; grid-template-columns: minmax(0, 250px) auto minmax(0, 250px) minmax(0, 250px); gap: 1.25rem; align-items: start; justify-content: start; }
+.stages .reel-card { position: relative; }
+.reel video { width: 100%; height: 100%; object-fit: cover; border-radius: 0; background: #000; }
+.stage-tag { position: absolute; top: 0.6rem; left: 0.6rem; z-index: 2; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; pointer-events: none; }
+.stage-tag.during { background: #8a5a12; }
+.stage-tag.after { background: var(--leaf-deep); }
+.stage-arrow { align-self: center; margin-top: -2.5rem; font-size: 1.8rem; color: var(--saffron); }
+@media (max-width: 760px) {
+  .stages { grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  .stage-arrow { display: none; }
+  .stages .reel-card:first-child { grid-column: 1 / -1; width: min(100%, 250px); justify-self: center; }
+}
