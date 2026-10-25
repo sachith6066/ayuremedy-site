@@ -582,3 +582,10 @@ p { line-height: 1.65; }
 .brand .brand-logo { width: auto; height: 54px; flex: none; }
 @media (max-width: 640px) { .brand .brand-logo { height: 46px; } }
 .ribbon .lead { text-align: center; }
+
+/* Inner-page header: full-width container, only the text is narrowed */
+.page-head .wrap.stack { max-width: var(--wrap); }
+.page-head .stack > * { max-width: 48rem; }
+
+/* Copy buttons: comfortable tap size on phones */
+.copy-btn { min-height: 36px; padding: 0.4rem 0.9rem; }
