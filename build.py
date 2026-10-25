@@ -19,6 +19,7 @@ the build rewrites them for the target.
 import json
 import os
 import re
+import hashlib
 import shutil
 from html import escape as html_escape
 import sys
@@ -158,8 +159,17 @@ ASIDE = """<aside class="aside" aria-label="Book and explore">
 </aside>"""
 
 
+def asset_version(rel):
+    """Short content hash, appended to asset links so browsers fetch new copies after a change."""
+    with open(os.path.join(ROOT, rel), "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:8]
+
+
 def build_page(layout, meta, body):
     body = body.replace("<!--aside-->", ASIDE)
+    layout = (layout
+              .replace("@/assets/css/site.css", "@/assets/css/site.css?v=" + asset_version("assets/css/site.css"))
+              .replace("@/assets/js/site.js", "@/assets/js/site.js?v=" + asset_version("assets/js/site.js")))
     path = meta.get("path", "")
     active = meta.get("nav", "")
     nav_parts, menu_parts = [], []
