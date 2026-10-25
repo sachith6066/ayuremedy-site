@@ -44,7 +44,7 @@ CLINIC = {
     "medicalSpecialty": "Ayurveda",
     "address": {
         "@type": "PostalAddress",
-        "streetAddress": "#38, TC Palya Main Road, Hoysala Nagar, opposite RK Apartments Block 4",
+        "streetAddress": "#38, Sai Krishna Apartment, TC Palya Main Road, near NeuroCyte Stem Cell",
         "addressLocality": "Ramamurthy Nagar, Bengaluru",
         "addressRegion": "Karnataka",
         "postalCode": "560016",
@@ -58,8 +58,9 @@ CLINIC = {
          "opens": "09:00", "closes": "20:00"},
         {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "13:00"},
     ],
-    "hasMap": "https://www.google.com/maps/search/?api=1&query=AyurRemedy+Ramamurthy+Nagar+Bangalore",
+    "hasMap": "https://www.google.com/maps?cid=7949517302550241119",
     "sameAs": [
+        "https://www.google.com/maps?cid=7949517302550241119",
         "https://www.facebook.com/Ayuremedy",
         "https://www.instagram.com/ayurremedyclinic/",
         "https://www.youtube.com/channel/UCA_t1cmEZWrdqLav08s4Lgw",

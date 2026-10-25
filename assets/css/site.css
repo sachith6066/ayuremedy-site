@@ -616,3 +616,13 @@ p { line-height: 1.65; }
   .brand .brand-logo { height: 42px; }
   .menu summary { transform: translateY(6px); }
 }
+
+/* Google rating */
+.g-rating { color: var(--ink); text-decoration: none; }
+.g-rating strong { color: #b26a00; }
+.g-rating:hover { color: var(--saffron); }
+.g-band { margin-top: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.25rem; padding: 1.2rem 1.4rem; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.g-score { font: 800 2.4rem/1 var(--f-display); color: var(--ink); }
+.g-stars { color: #f4a100; letter-spacing: 0.1em; font-size: 1.1rem; }
+.g-band .btn { margin-left: auto; }
+@media (max-width: 640px) { .g-band .btn { margin-left: 0; width: 100%; } }
