@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 170" role="img" aria-label="Kapha: earth and water, green hills rising above calm water">
+  <defs>
+    <linearGradient id="ksky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e7efd9"/><stop offset="1" stop-color="#cfe2bf"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6fa8c6"/><stop offset="1" stop-color="#3f7fa3"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="170" fill="url(#ksky)"/>
+  <circle cx="250" cy="40" r="18" fill="#fff7dc" opacity="0.9"/>
+  <path d="M0 118 L60 52 L104 92 L150 40 L214 104 L254 70 L320 116 L320 170 L0 170 Z" fill="#7aa86c"/>
+  <path d="M150 40 L170 60 L160 58 L150 66 L140 56 Z" fill="#eef4e6" opacity="0.8"/>
+  <path d="M0 132 C 50 104 96 118 140 106 S 230 92 320 120 L320 170 L0 170 Z" fill="#4c8452"/>
+  <path d="M0 140 C 40 126 90 134 130 128 S 220 118 320 134 L320 170 L0 170 Z" fill="#2f6b3a"/>
+  <rect x="0" y="146" width="320" height="24" fill="url(#water)"/>
+  <g fill="none" stroke="#ffffff" stroke-linecap="round" opacity="0.7">
+    <path d="M24 156 q 10 -5 20 0 t 20 0" stroke-width="2"/><path d="M118 160 q 10 -5 20 0 t 20 0" stroke-width="2"/><path d="M216 155 q 10 -5 20 0 t 20 0" stroke-width="2"/>
+  </g>
+</svg>
