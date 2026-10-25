@@ -651,9 +651,6 @@ p { line-height: 1.65; }
 .btn-fb:hover { background: #1877f2; color: #fff; border-color: #1877f2; }
 @media (max-width: 640px) { .ig-band .btn-row, .ig-band .btn { width: 100%; } .follow-marks .ig-mark, .follow-marks .fb-mark { width: 52px; height: 52px; border-radius: 14px; } }
 
-/* Doctor photos */
-.doctor img { object-position: 50% 30%; }
-.split img.doc-portrait { aspect-ratio: 4 / 5; max-width: 440px; width: 100%; justify-self: center; object-position: 50% 20%; }
 
 /* Dosha illustrations: a picture panel across the top of each card, letter badge overlapping it */
 .dosha { overflow: hidden; padding-top: 0; }
