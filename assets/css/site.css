@@ -9,7 +9,7 @@
   --ink-soft: #56645b;
   --leaf: #2f7a3a;
   --leaf-deep: #0f2e1d;
-  --saffron: #c84c0c;
+  --saffron: #b5450b;
   --saffron-ink: #ffffff;
   --line: #ece3d8;
   --shadow: 0 1px 2px rgb(16 38 26 / 0.04), 0 10px 30px -14px rgb(16 38 26 / 0.18);
@@ -621,7 +621,7 @@ p { line-height: 1.65; }
 
 /* Google rating */
 .g-rating { color: var(--ink); text-decoration: none; }
-.g-rating strong { color: #b26a00; }
+.g-rating strong { color: #935600; }
 .g-rating:hover { color: var(--saffron); }
 .g-band { margin-top: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.25rem; padding: 1.2rem 1.4rem; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
 .g-score { font: 800 2.4rem/1 var(--f-display); color: var(--ink); }
