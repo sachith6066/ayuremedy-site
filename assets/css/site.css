@@ -703,3 +703,8 @@ p { line-height: 1.65; }
 }
 /* Dosha initials: a classical serif italic, subset to just V, P and K (layout.html) */
 .dosha .glyph { font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif; font-style: italic; font-weight: 600; font-size: 2.15rem; line-height: 1; padding: 0 0.12rem 0.1rem 0; background-image: radial-gradient(circle at 30% 25%, rgb(255 255 255 / 0.28), transparent 60%); text-shadow: 0 1px 2px rgb(0 0 0 / 0.18); }
+/* YouTube cards: same tap-to-play facade, landscape */
+.reel.wide, .reel-frame.wide { aspect-ratio: 16 / 9; }
+.videos.three { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 960px) { .videos.three { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .videos.three { grid-template-columns: 1fr; } }

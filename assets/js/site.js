@@ -138,14 +138,17 @@ function initTracking() {
   });
 }
 
-// Facebook videos are links to the video until tapped; then Facebook's player replaces the poster.
+// Facebook and YouTube videos are links to the video until tapped; then the platform's player replaces the poster.
 function initReels() {
-  document.querySelectorAll("a.reel[data-fb]").forEach(function (a) {
+  document.querySelectorAll("a.reel[data-fb], a.reel[data-yt]").forEach(function (a) {
     a.addEventListener("click", function (e) {
       e.preventDefault();
       var f = document.createElement("iframe");
-      f.className = "reel-frame";
-      f.src = "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(a.href) + "&show_text=false&width=360&autoplay=true";
+      var yt = a.getAttribute("data-yt");
+      f.className = a.classList.contains("wide") ? "reel-frame wide" : "reel-frame";
+      f.src = yt
+        ? "https://www.youtube-nocookie.com/embed/" + yt + "?autoplay=1&rel=0"
+        : "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(a.href) + "&show_text=false&width=360&autoplay=true";
       f.title = a.getAttribute("aria-label").replace("Play video: ", "");
       f.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
       f.allowFullscreen = true;
