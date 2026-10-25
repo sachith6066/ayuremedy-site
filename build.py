@@ -171,7 +171,8 @@ def build_page(layout, meta, body):
     body = body.replace("<!--aside-->", ASIDE)
     layout = (layout
               .replace("@/assets/css/site.css", "@/assets/css/site.css?v=" + asset_version("assets/css/site.css"))
-              .replace("@/assets/js/site.js", "@/assets/js/site.js?v=" + asset_version("assets/js/site.js")))
+              .replace("@/assets/js/site.js", "@/assets/js/site.js?v=" + asset_version("assets/js/site.js"))
+              .replace("@/assets/img/logo.png", "@/assets/img/logo.png?v=" + asset_version("assets/img/logo.png")))
     path = meta.get("path", "")
     active = meta.get("nav", "")
     nav_parts, menu_parts = [], []
