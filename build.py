@@ -27,6 +27,8 @@ import sys
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = "https://www.ayuremedy.com"
 PREVIEW = "--preview" in sys.argv
+# GA4 measurement ID ("G-XXXXXXXXXX"). Empty means no analytics tag is added; the preview never gets one.
+GA_ID = ""
 OUT = os.path.join(ROOT, "preview" if PREVIEW else "public")
 
 CLINIC = {
@@ -205,6 +207,13 @@ def build_page(layout, meta, body):
     menu_parts.append('<a href="@/book-appointment/">Book Appointment</a>')
     nav_html, menu_html = "\n".join(nav_parts), "\n".join(menu_parts)
     schema = json.dumps([WEBSITE, CLINIC] if path == "" else CLINIC, ensure_ascii=False, indent=1)
+    analytics = ""
+    if GA_ID and not PREVIEW:
+        # Google signals and ad personalisation stay off: this is a clinic site, so no audience building.
+        analytics = ('<script async src="https://www.googletagmanager.com/gtag/js?id={0}"></script>\n'
+                     '<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}'
+                     'gtag("js",new Date());gtag("config","{0}",{{allow_google_signals:false,'
+                     'allow_ad_personalization_signals:false}});</script>').format(GA_ID)
     html = (layout
             .replace("{{title}}", meta["title"])
             .replace("{{description}}", meta["description"])
@@ -212,6 +221,7 @@ def build_page(layout, meta, body):
             .replace("{{nav}}", nav_html)
             .replace("{{menu}}", menu_html)
             .replace("{{schema}}", schema)
+            .replace("{{analytics}}", analytics)
             .replace("{{body}}", body))
     return rewrite_links(html, path)
 

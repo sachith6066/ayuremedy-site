@@ -71,6 +71,7 @@ function initForm() {
     msg.dataset.state = "";
     msg.innerHTML = "Your request is ready in WhatsApp. Press send there and the front desk will call you to confirm a time. " +
       "If WhatsApp did not open, <a href=\"" + url + "\" target=\"_blank\" rel=\"noopener\">open it here</a> or call 080-4854 2888.";
+    track("booking_request", { doctor: form.elements["doctor"].value });
     window.open(url, "_blank", "noopener");
   });
 }
@@ -104,6 +105,39 @@ function markSeason() {
   });
 }
 
+// Enquiry clicks for GA4 (and Google Ads, via imported key events). Only the event name and
+// which button was used are sent, never form contents. Does nothing until build.py has a GA_ID.
+function track(name, params) {
+  if (typeof window.gtag === "function") window.gtag("event", name, params || {});
+}
+
+function placeOf(a) {
+  if (a.closest(".action-bar")) return "mobile_bar";
+  if (a.classList.contains("float-chat")) return "float_button";
+  if (a.closest(".site-header")) return "header";
+  if (a.closest("footer")) return "footer";
+  return "page";
+}
+
+function initTracking() {
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[href]");
+    if (!a) return;
+    var href = a.getAttribute("href");
+    var place = { link_location: placeOf(a) };
+    if (href.indexOf("tel:") === 0) {
+      place.line = href.indexOf("tel:+9180") === 0 ? "landline" : "mobile";
+      track("call_click", place);
+    } else if (href.indexOf("wa.me/") !== -1) {
+      track("whatsapp_click", place);
+    } else if (href.indexOf("google.com/maps") !== -1) {
+      track("directions_click", place);
+    } else if (href.indexOf("mailto:") === 0) {
+      track("email_click", place);
+    }
+  });
+}
+
 // Facebook videos are links to the video until tapped; then Facebook's player replaces the poster.
 function initReels() {
   document.querySelectorAll("a.reel[data-fb]").forEach(function (a) {
@@ -122,6 +156,7 @@ function initReels() {
 
 document.addEventListener("DOMContentLoaded", function () {
   renderStatus();
+  initTracking();
   initReels();
   markSeason();
   initForm();
