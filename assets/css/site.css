@@ -610,13 +610,13 @@ p { line-height: 1.65; }
    part of the image (the leaf rises above it), so the logo is lifted until the word, not the
    image box, lines up with the menu text. The bar is a little taller to give the leaf room. */
 .site-header { background: #fff; backdrop-filter: none; }
-.site-header .wrap { align-items: center; min-height: 94px; padding-block: 0.5rem; }
+.site-header .wrap { align-items: center; min-height: 108px; padding-block: 0.5rem; }
 .brand { display: flex; align-items: center; line-height: 0; }
-.brand .brand-logo { height: 60px; width: auto; transform: translateY(-10px); }
+.brand .brand-logo { height: 60px; width: auto; transform: translateY(var(--logo-lift, -17px)); }
 .nav, .menu summary { transform: none; }
 @media (max-width: 640px) {
-  .site-header .wrap { min-height: 74px; }
-  .brand .brand-logo { height: 46px; transform: translateY(-7px); }
+  .site-header .wrap { min-height: 84px; }
+  .brand .brand-logo { height: 46px; --logo-lift: -12px; }
 }
 
 /* Google rating */
