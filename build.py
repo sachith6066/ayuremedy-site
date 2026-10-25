@@ -21,6 +21,8 @@ import os
 import re
 import hashlib
 import shutil
+import subprocess
+import datetime
 from html import escape as html_escape
 import sys
 
@@ -60,6 +62,7 @@ CLINIC = {
          "opens": "09:00", "closes": "20:00"},
         {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "13:00"},
     ],
+    "geo": {"@type": "GeoCoordinates", "latitude": 13.0157936, "longitude": 77.6680717},
     "hasMap": "https://www.google.com/maps?cid=7949517302550241119",
     "sameAs": [
         "https://www.google.com/maps?cid=7949517302550241119",
@@ -175,6 +178,16 @@ ASIDE = """<aside class="aside" aria-label="Book and explore">
 </aside>"""
 
 
+def last_changed(path):
+    """Date (YYYY-MM-DD) of the last commit that touched a page, for the sitemap; today if it is uncommitted."""
+    try:
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", path], cwd=ROOT,
+                             capture_output=True, text=True, check=True).stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        out = ""
+    return out or datetime.date.today().isoformat()
+
+
 def asset_version(rel):
     """Short content hash, appended to asset links so browsers fetch new copies after a change."""
     with open(os.path.join(ROOT, rel), "rb") as f:
@@ -246,7 +259,7 @@ def main():
             dest = os.path.join(OUT, "404.html")
         else:
             dest = os.path.join(OUT, path, "index.html")
-            urls.append(SITE + "/" + path)
+            urls.append((SITE + "/" + path, last_changed(os.path.join(pages_dir, name))))
         os.makedirs(os.path.dirname(dest), exist_ok=True)
         with open(dest, "w", encoding="utf-8") as f:
             f.write(build_page(layout, meta, body))
@@ -277,7 +290,7 @@ def main():
         open(os.path.join(OUT, ".nojekyll"), "w").close()
         sitemap = ['<?xml version="1.0" encoding="UTF-8"?>',
                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-        sitemap += ["  <url><loc>{}</loc></url>".format(u) for u in urls]
+        sitemap += ["  <url><loc>{}</loc><lastmod>{}</lastmod></url>".format(u, d) for u, d in urls]
         sitemap.append("</urlset>")
         with open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8") as f:
             f.write("\n".join(sitemap) + "\n")
