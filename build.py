@@ -28,7 +28,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = "https://www.ayuremedy.com"
 PREVIEW = "--preview" in sys.argv
 # GA4 measurement ID ("G-XXXXXXXXXX"). Empty means no analytics tag is added; the preview never gets one.
-GA_ID = ""
+GA_ID = "G-ZJWDXWQ7RV"
 OUT = os.path.join(ROOT, "preview" if PREVIEW else "public")
 
 CLINIC = {
