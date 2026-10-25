@@ -592,3 +592,16 @@ p { line-height: 1.65; }
 
 /* Clean inner-page headers: no watermark */
 .page-head::after { display: none; }
+
+/* Hydra facial page */
+.steps.ten { grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: 2rem; }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.checks li { position: relative; padding-left: 2rem; font-weight: 500; }
+.checks li::before { content: ""; position: absolute; left: 0; top: 0.15em; width: 1.3rem; height: 1.3rem; border-radius: 50%; background: var(--leaf); -webkit-mask: none; }
+.checks li::after { content: ""; position: absolute; left: 0.42rem; top: 0.42em; width: 0.4rem; height: 0.65rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.checks.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.chips.plain { justify-content: flex-start; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chips.plain span { display: inline-block; padding: 0.5rem 1rem; border-radius: 999px; background: var(--paper-2); color: var(--leaf-deep); font-weight: 500; }
+.page-head .tags { margin-top: 0.25rem; }
+@media (max-width: 960px) { .steps.ten { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .steps.ten { grid-template-columns: 1fr; } .checks.two { grid-template-columns: 1fr; } }

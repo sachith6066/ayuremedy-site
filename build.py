@@ -36,7 +36,7 @@ CLINIC = {
     "name": "AyurRemedy Ayurveda Clinic, Treatment Centre & Pharmacy",
     "alternateName": ["AyuRemedy", "Ayuremedy"],
     "url": SITE + "/",
-    "logo": SITE + "/wp-content/uploads/logo.png",
+    "logo": SITE + "/assets/img/logo.png",
     "image": [SITE + "/assets/img/storefront.jpg", SITE + "/assets/img/reception.jpg"],
     "telephone": "+91-80-48542888",
     "email": "info@ayuremedy.com",
@@ -91,6 +91,7 @@ NAV = [
         ("parasurgical", "Para Surgical Procedures", "@/para-surgical-procedures/"),
         ("wound", "Wound Management", "@/wound-management/"),
         ("cosmetic", "Cosmetic Treatment", "@/cosmetic-treatment/"),
+        ("hydra", "Ayurvedic Hydra Facial", "@/ayurvedic-hydra-facial/"),
     ]),
     ("faq", "FAQs", "@/faqs/"),
     ("Gallery", [
@@ -155,6 +156,7 @@ ASIDE = """<aside class="aside" aria-label="Book and explore">
     <li><a href="@/para-surgical-procedures/">Para Surgical Procedures</a></li>
     <li><a href="@/wound-management/">Wound Management</a></li>
     <li><a href="@/cosmetic-treatment/">Cosmetic Treatment</a></li>
+    <li><a href="@/ayurvedic-hydra-facial/">Ayurvedic Hydra Facial</a></li>
   </ul>
 </aside>"""
 
