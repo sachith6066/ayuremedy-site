@@ -628,3 +628,18 @@ p { line-height: 1.65; }
 .g-stars { color: #f4a100; letter-spacing: 0.1em; font-size: 1.1rem; }
 .g-band .btn { margin-left: auto; }
 @media (max-width: 640px) { .g-band .btn { margin-left: 0; width: 100%; } }
+
+/* Social icons (footer) */
+.social { list-style: none; margin: 0.4rem 0 0; padding: 0; display: flex; gap: 0.6rem; }
+.social a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgb(255 255 255 / 0.1); color: #fff; }
+.social a:hover { background: var(--saffron); color: #fff; }
+.social svg { width: 20px; height: 20px; }
+
+/* Instagram follow band (home) */
+.ig-band { background: #fff; }
+.ig-band .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 1.75rem; padding-block: 2.5rem; }
+.ig-band .stack { flex: 1 1 18rem; gap: 0.4rem; }
+.ig-band h2 { font-size: var(--step-2); }
+.ig-mark { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; color: #fff; flex: none;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+.ig-mark svg { width: 34px; height: 34px; }
