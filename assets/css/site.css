@@ -342,11 +342,6 @@ a.label:hover { border-color: var(--leaf); }
 .chips a:hover { border-color: var(--leaf); color: var(--leaf); }
 
 /* Credentials ribbon */
-.ribbon { background: var(--leaf-deep); color: var(--paper); }
-.ribbon .wrap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem 2rem; padding-block: 1.3rem; }
-.ribbon .lead { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; color: color-mix(in srgb, var(--paper) 70%, transparent); }
-.ribbon ul { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; list-style: none; margin: 0; padding: 0; }
-.ribbon li { font-family: var(--f-display); font-size: 1.05rem; }
 
 /* Featured specialities: two large with photos, the rest compact */
 .featured { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
@@ -512,13 +507,6 @@ p { line-height: 1.65; }
 .chips a:hover { border-color: var(--saffron); color: var(--saffron); }
 
 /* Credentials: from a dark strip to a "standards" grid of tiles */
-.ribbon { background: #fff; color: var(--ink); padding-block: 1rem 0; }
-.ribbon .wrap { display: grid; justify-items: center; gap: 1.2rem; padding-block: 2rem; }
-.ribbon .lead { color: var(--ink); font: 800 var(--step-2)/1.2 var(--f-display); text-transform: none; letter-spacing: -0.01em; }
-.ribbon ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; width: 100%; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-.ribbon li { font: 600 0.98rem/1.35 var(--f-body); text-align: center; padding: 1.4rem 1rem; display: grid; gap: 0.6rem; justify-items: center; border-right: 1px solid var(--line); }
-.ribbon li:last-child { border-right: 0; }
-.ribbon li::before { content: ""; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--paper-2) url("../img/mark.svg") center / 1.4rem no-repeat; }
 
 /* Cards */
 .label, .feature, .cond, .doctor, .season, .dosha, .quote, .aside, .form, .note, .before-after img { border-radius: var(--radius); }
@@ -567,11 +555,6 @@ p { line-height: 1.65; }
 .float-chat:hover { background: #ad3f07; color: #fff; }
 @media (max-width: 640px) { .float-chat { display: none; } }
 
-@media (max-width: 960px) {
-  .ribbon ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ribbon li:nth-child(2n) { border-right: 0; }
-  .ribbon li:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-}
 @media (prefers-reduced-motion: reduce) { .label, .feature { transition: none; } .label:hover, .feature:hover { transform: none; } }
 .cta-band { background: var(--saffron); }
 .cta-band h2 { color: #fff; }
@@ -581,7 +564,6 @@ p { line-height: 1.65; }
 .cta-band::after { background: #fff; opacity: 0.12; }
 .brand .brand-logo { width: auto; height: 54px; flex: none; }
 @media (max-width: 640px) { .brand .brand-logo { height: 46px; } }
-.ribbon .lead { text-align: center; }
 
 /* Inner-page header: full-width container, only the text is narrowed */
 .page-head .wrap.stack { max-width: var(--wrap); }
@@ -721,3 +703,28 @@ p { line-height: 1.65; }
   .stage-arrow { display: none; }
   .stages .reel-card:first-child { grid-column: 1 / -1; width: min(100%, 250px); justify-self: center; }
 }
+/* Home: where the physicians trained and worked; each card links to that doctor's profile */
+.creds { background: #fff; }
+.creds .wrap { display: grid; gap: 1.6rem; padding-block: 3rem 2.5rem; }
+.creds h2 { text-align: center; font-size: var(--step-2); }
+.creds-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.creds-grid a { display: flex; flex-direction: column; gap: 0.3rem; height: 100%; padding: 1.2rem 1.25rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+.creds-grid a:hover { border-color: color-mix(in srgb, var(--saffron) 45%, var(--line)); box-shadow: 0 14px 28px -20px rgb(0 0 0 / 0.35); transform: translateY(-2px); }
+.creds-grid a:focus-visible { outline: 3px solid var(--saffron); outline-offset: 3px; }
+.cred-kind { align-self: flex-start; padding: 0.15rem 0.6rem; border-radius: 999px; background: var(--paper-2); color: var(--saffron); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.creds-grid strong { margin-top: 0.4rem; font: 700 1.05rem/1.3 var(--f-display); }
+.cred-place { color: var(--ink-soft); font-size: 0.9rem; }
+.cred-who { display: flex; align-items: center; gap: 0.5rem; margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--line); color: var(--leaf); font-size: 0.86rem; font-weight: 600; }
+.cred-who img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; flex: none; }
+@media (max-width: 960px) { .creds-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) {
+  .creds .wrap { padding-block: 2.25rem 1.75rem; }
+  .creds-grid { gap: 0.7rem; }
+  .creds-grid a { padding: 1rem 0.9rem 0.85rem; }
+  .creds-grid strong { font-size: 0.95rem; }
+  .cred-place, .cred-who { font-size: 0.8rem; }
+  .cred-who img { width: 22px; height: 22px; }
+  .cred-kind { font-size: 0.64rem; letter-spacing: 0.03em; padding-inline: 0.5rem; white-space: nowrap; }
+  .cred-surname { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .creds-grid a { transition: none; } .creds-grid a:hover { transform: none; } }
