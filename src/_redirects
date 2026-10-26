@@ -1,6 +1,6 @@
-# Same rules for Cloudflare Pages / Netlify, if the site moves off cPanel
-/home/            /            301
-/author/*         /about-us/   301
-/feed/            /            301
+# Netlify redirects. "301!" forces the redirect even though build.py also writes a forwarding page at that path (kept for GitHub Pages).
+/home/            /            301!
+/author/*         /about-us/   301!
+/feed/            /            301!
 /index.php/*      /            301
 /wp-sitemap.xml   /sitemap.xml 301
