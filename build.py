@@ -273,7 +273,9 @@ def main():
         with open(home, "w", encoding="utf-8") as f:
             f.write(html)
     else:
-        for extra in (".htaccess", "_redirects", "robots.txt"):
+        # Root files, including Google Search Console verification files (google<id>.html).
+        verify = [n for n in os.listdir(os.path.join(ROOT, "src")) if re.match(r"google[0-9a-f]+\.html$", n)]
+        for extra in [".htaccess", "_redirects", "robots.txt"] + verify:
             src = os.path.join(ROOT, "src", extra)
             if os.path.exists(src):
                 shutil.copy(src, os.path.join(OUT, extra))
