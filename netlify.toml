@@ -1,0 +1,13 @@
+# Netlify hosting: build the static site from src/ into public/ (same build GitHub Pages uses).
+[build]
+  command = "python3 build.py"
+  publish = "public"
+
+[build.environment]
+  PYTHON_VERSION = "3.12"
+
+# One-day cache for images, CSS and JS (not every image link is version-tagged, so no year-long cache).
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
