@@ -4,3 +4,6 @@
 /feed/            /            301!
 /index.php/*      /            301
 /wp-sitemap.xml   /sitemap.xml 301
+# Short link printed on the reception review card (QR). 302 so the target can change later.
+/review           https://search.google.com/local/writereview?placeid=ChIJtXqEKFERrjsRXx9USt5bUm4  302
+/review/          https://search.google.com/local/writereview?placeid=ChIJtXqEKFERrjsRXx9USt5bUm4  302

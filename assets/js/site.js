@@ -128,6 +128,8 @@ function initTracking() {
     if (href.indexOf("tel:") === 0) {
       place.line = href.indexOf("tel:+9180") === 0 ? "landline" : "mobile";
       track("call_click", place);
+    } else if (href.indexOf("writereview") !== -1) {
+      track("review_click", place);
     } else if (href.indexOf("wa.me/") !== -1) {
       track("whatsapp_click", place);
     } else if (href.indexOf("google.com/maps") !== -1) {
