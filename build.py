@@ -55,7 +55,7 @@ CLINIC = {
         "addressCountry": "IN",
     },
     "areaServed": ["Ramamurthy Nagar", "TC Palya", "Hoysala Nagar", "KR Puram", "Horamavu",
-                   "Banaswadi", "Kalkere", "Kammanahalli", "Bengaluru"],
+                   "Banaswadi", "Kasturi Nagar", "Kalyan Nagar", "Kalkere", "Kammanahalli", "Bengaluru"],
     "openingHoursSpecification": [
         {"@type": "OpeningHoursSpecification",
          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
