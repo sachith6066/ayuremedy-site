@@ -100,6 +100,11 @@ NAV = [
         ("natal", "Pre & Post Natal Care", "@/pre-post-natal-care/"),
         ("swarna", "Swarnabindu Prashana", "@/swarnabindu-prashana/"),
         ("wellness", "Wellness", "@/wellness/"),
+        ("knee", "Knee Pain & Arthritis", "@/knee-pain-arthritis-treatment/"),
+        ("back", "Back Pain & Sciatica", "@/back-pain-sciatica-treatment/"),
+        ("piles", "Piles, Fissure & Fistula", "@/piles-fissure-fistula-treatment/"),
+        ("pcod", "PCOD / PCOS", "@/pcod-pcos-treatment/"),
+        ("skin", "Psoriasis, Eczema & Skin", "@/skin-disease-treatment/"),
     ]),
     ("Services", [
         ("protocol", "Our Protocol", "@/our-protocol/"),
@@ -114,6 +119,7 @@ NAV = [
     ("Gallery", [
         ("images", "Image Gallery", "@/image-gallery/"),
         ("videos", "Video Gallery", "@/video-gallery/"),
+        ("tips", "Health Tips", "@/health-tips/"),
     ]),
     ("contact", "Contact Us", "@/contact-us/"),
 ]
@@ -164,6 +170,14 @@ ASIDE = """<aside class="aside" aria-label="Book and explore">
     <li><a href="@/pre-post-natal-care/">Pre &amp; Post Natal Care</a></li>
     <li><a href="@/swarnabindu-prashana/">Swarnabindu Prashana</a></li>
     <li><a href="@/wellness/">Wellness</a></li>
+  </ul>
+  <h2 style="font-size:1.05rem;margin-top:0.5rem">Conditions</h2>
+  <ul class="small" style="margin:0;padding-left:1.1rem;display:grid;gap:0.25rem">
+    <li><a href="@/knee-pain-arthritis-treatment/">Knee pain &amp; arthritis</a></li>
+    <li><a href="@/back-pain-sciatica-treatment/">Back pain &amp; sciatica</a></li>
+    <li><a href="@/piles-fissure-fistula-treatment/">Piles, fissure &amp; fistula</a></li>
+    <li><a href="@/pcod-pcos-treatment/">PCOD / PCOS</a></li>
+    <li><a href="@/skin-disease-treatment/">Psoriasis, eczema &amp; skin</a></li>
   </ul>
   <h2 style="font-size:1.05rem;margin-top:0.5rem">Services</h2>
   <ul class="small" style="margin:0;padding-left:1.1rem;display:grid;gap:0.25rem">
@@ -227,7 +241,22 @@ def build_page(layout, meta, body):
                      '<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}'
                      'gtag("js",new Date());gtag("config","{0}",{{allow_google_signals:false,'
                      'allow_ad_personalization_signals:false}});</script>').format(GA_ID)
+    lang = meta.get("lang", "en-IN")
+    alternates = ""
+    if meta.get("alt"):
+        # Pages that exist in English and Kannada point at each other so Google shows the right one.
+        other = "" if meta["alt"] == "/" else meta["alt"]
+        en_path, kn_path = (other, path) if lang.startswith("kn") else (path, other)
+        alternates = ('<link rel="alternate" hreflang="en-IN" href="{0}/{1}">\n'
+                      '<link rel="alternate" hreflang="kn-IN" href="{0}/{2}">\n'
+                      '<link rel="alternate" hreflang="x-default" href="{0}/{1}">').format(SITE, en_path, kn_path)
+    if "<!--byline-->" in body:
+        d = datetime.date.fromisoformat(meta.get("_updated", datetime.date.today().isoformat()))
+        body = body.replace("<!--byline-->", '<p class="byline">Written by the AyurRemedy clinical team · Updated {} {} {}</p>'
+                            .format(d.day, d.strftime("%B"), d.year))
     html = (layout
+            .replace("{{lang}}", lang)
+            .replace("{{alternates}}", alternates)
             .replace("{{title}}", meta["title"])
             .replace("{{description}}", meta["description"])
             .replace("{{canonical}}", SITE + "/" + path)
@@ -254,6 +283,7 @@ def main():
         if not name.endswith(".html"):
             continue
         meta, body = parse_page(read(os.path.join(pages_dir, name)))
+        meta["_updated"] = last_changed(os.path.join(pages_dir, name))
         path = meta.get("path", "")
         if name == "404.html":
             dest = os.path.join(OUT, "404.html")

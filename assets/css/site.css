@@ -739,3 +739,22 @@ p { line-height: 1.65; }
   .cred-list li { grid-template-columns: 3.1rem minmax(0, 1fr); gap: 0.75rem; }
   .cred-deg { height: 2.6rem; font-size: 0.85rem; }
 }
+/* Kannada pages (lang="kn-IN"): Noto Sans Kannada for body and headings, Kannada step labels */
+:lang(kn) body, :lang(kn) h1, :lang(kn) h2, :lang(kn) h3, :lang(kn) .btn, :lang(kn) .lede { font-family: var(--f-kn), var(--f-body); }
+:lang(kn) h1, :lang(kn) h2, :lang(kn) h3 { letter-spacing: 0; line-height: 1.35; }
+:lang(kn) .steps li::before { content: "ಹಂತ " counter(step); letter-spacing: 0; }
+.lang-switch { align-self: flex-start; justify-self: start; width: fit-content; display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.75rem; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--leaf-deep); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+.lang-switch:hover { border-color: var(--leaf); }
+/* Content pages: who wrote it and when it was last updated */
+.byline { margin: 0; color: var(--ink-soft); font-size: 0.85rem; }
+/* Health Tips index: one card per article (video still + summary) */
+.tips-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.tip-card a { display: grid; grid-template-rows: auto 1fr; height: 100%; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--card); color: var(--ink); text-decoration: none; transition: box-shadow 0.2s, transform 0.2s; }
+.tip-card a:hover { box-shadow: 0 14px 28px -20px rgb(0 0 0 / 0.35); transform: translateY(-2px); }
+.tip-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 30%; display: block; }
+.tip-body { display: flex; flex-direction: column; gap: 0.45rem; padding: 1rem 1.1rem 1.1rem; }
+.tip-tag { position: static; align-self: flex-start; }
+.tip-body strong { font: 700 1.05rem/1.3 var(--f-display); }
+.tip-desc { color: var(--ink-soft); font-size: 0.9rem; }
+.tip-more { margin-top: auto; padding-top: 0.4rem; color: var(--leaf); font-weight: 600; font-size: 0.9rem; }
+@media (prefers-reduced-motion: reduce) { .tip-card a { transition: none; } .tip-card a:hover { transform: none; } }

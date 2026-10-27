@@ -53,7 +53,7 @@ function initForm() {
     var phone = form.elements["phone"].value.trim();
     if (!name || phone.replace(/\D/g, "").length < 10) {
       msg.dataset.state = "error";
-      msg.textContent = "Please add your name and a 10-digit phone number so the clinic can call you back.";
+      msg.textContent = form.dataset.msgError || "Please add your name and a 10-digit phone number so the clinic can call you back.";
       return;
     }
     var lines = [
@@ -69,8 +69,8 @@ function initForm() {
     if (reason) lines.push("Reason: " + reason);
     var url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(lines.join("\n"));
     msg.dataset.state = "";
-    msg.innerHTML = "Your request is ready in WhatsApp. Press send there and the front desk will call you to confirm a time. " +
-      "If WhatsApp did not open, <a href=\"" + url + "\" target=\"_blank\" rel=\"noopener\">open it here</a> or call 080-4854 2888.";
+    msg.innerHTML = (form.dataset.msgReady || "Your request is ready in WhatsApp. Press send there and the front desk will call you to confirm a time. " +
+      "If WhatsApp did not open, <a href=\"{url}\" target=\"_blank\" rel=\"noopener\">open it here</a> or call 080-4854 2888.").replace("{url}", url);
     track("booking_request", { doctor: form.elements["doctor"].value });
     window.open(url, "_blank", "noopener");
   });
