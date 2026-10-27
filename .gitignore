@@ -5,3 +5,4 @@ _originals/
 __pycache__/
 docs/doctors-to-confirm.md
 docs/*.zone*
+docs/listing-corrections.md
