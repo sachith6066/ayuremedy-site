@@ -119,6 +119,14 @@ function placeOf(a) {
   return "page";
 }
 
+function initVideoTracking() {
+  document.querySelectorAll("video").forEach(function (v) {
+    v.addEventListener("play", function () {
+      track("video_play", { video: (v.currentSrc || "").split("/").pop() });
+    }, { once: true });
+  });
+}
+
 function initTracking() {
   document.addEventListener("click", function (e) {
     var a = e.target.closest("a[href]");
@@ -180,6 +188,7 @@ function initRails() {
 document.addEventListener("DOMContentLoaded", function () {
   renderStatus();
   initTracking();
+  initVideoTracking();
   initReels();
   initRails();
   markSeason();

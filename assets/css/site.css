@@ -767,3 +767,11 @@ p { line-height: 1.65; }
 .area-links span { font-size: var(--step--1); color: var(--ink-soft); }
 .area-route th { width: 7.5rem; }
 .footer-areas { font-size: var(--step--1); opacity: 0.85; margin: 0 0 0.75rem; }
+
+/* Clinic film */
+.film { display: grid; gap: 1.5rem 2.5rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); align-items: center; }
+@media (max-width: 860px) { .film { grid-template-columns: 1fr; } }
+.film-frame { margin: 0; }
+.film-frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #0f2e1d; border-radius: var(--radius); box-shadow: var(--shadow); }
+.film-wide { max-width: 60rem; }
+.film-frame figcaption { margin-top: 0.6rem; }
