@@ -15,10 +15,14 @@ nav: videos
   <div class="wrap stack-lg">
     <h2 id="clinic-film">Inside AyurRemedy</h2>
     <figure class="film-frame film-wide">
-        <video controls preload="none" playsinline width="1280" height="720" poster="@/assets/img/film-poster.jpg">
+        <video class="film-16x9" controls preload="none" playsinline width="1280" height="720" poster="@/assets/img/film-poster.jpg">
           <source src="@/assets/video/ayuremedy-clinic-film-720.mp4" type="video/mp4">
           <track kind="captions" src="@/assets/video/ayuremedy-clinic-film.en.vtt" srclang="en" label="English" default>
           <a href="@/assets/video/ayuremedy-clinic-film-720.mp4">Watch the AyurRemedy film</a>
+        </video>
+        <video class="film-9x16" controls preload="none" playsinline width="720" height="1280" poster="@/assets/img/film-poster-vertical.jpg">
+          <source src="@/assets/video/ayuremedy-clinic-film-vertical.mp4" type="video/mp4">
+          <a href="@/assets/video/ayuremedy-clinic-film-vertical.mp4">Watch the AyurRemedy film</a>
         </video>
       <figcaption class="small muted">A one-minute look at our clinic, treatment rooms and pharmacy. The close-ups of the lamp, pulse reading, oil and herbs are illustrative; everything else is our clinic.</figcaption>
     </figure>
