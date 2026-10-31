@@ -133,7 +133,9 @@ function initTracking() {
     if (!a) return;
     var href = a.getAttribute("href");
     var place = { link_location: placeOf(a) };
-    if (href.indexOf("tel:") === 0) {
+    if (a.closest(".lang-bar")) {
+      track("language_switch", { language: a.lang });
+    } else if (href.indexOf("tel:") === 0) {
       place.line = href.indexOf("tel:+9180") === 0 ? "landline" : "mobile";
       track("call_click", place);
     } else if (href.indexOf("writereview") !== -1) {

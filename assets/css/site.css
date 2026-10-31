@@ -17,6 +17,7 @@
   --f-display: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
   --f-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --f-kn: "Noto Sans Kannada", "Tunga", sans-serif;
+  --f-ml: "Noto Sans Malayalam", "Malayalam Sangam MN", sans-serif;
 
   --step--1: 0.875rem;
   --step-0: 1rem;
@@ -744,8 +745,19 @@ p { line-height: 1.65; }
 :lang(kn) body, :lang(kn) h1, :lang(kn) h2, :lang(kn) h3, :lang(kn) .btn, :lang(kn) .lede { font-family: var(--f-kn), var(--f-body); }
 :lang(kn) h1, :lang(kn) h2, :lang(kn) h3 { letter-spacing: 0; line-height: 1.35; }
 :lang(kn) .steps li::before { content: "ಹಂತ " counter(step); letter-spacing: 0; }
-.lang-switch { align-self: flex-start; justify-self: start; width: fit-content; display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.75rem; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--leaf-deep); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
-.lang-switch:hover { border-color: var(--leaf); }
+/* Malayalam pages (lang="ml-IN"), set up the same way as the Kannada ones */
+:lang(ml) body, :lang(ml) h1, :lang(ml) h2, :lang(ml) h3, :lang(ml) .btn, :lang(ml) .lede { font-family: var(--f-ml), var(--f-body); }
+:lang(ml) h1, :lang(ml) h2, :lang(ml) h3 { letter-spacing: 0; line-height: 1.35; }
+:lang(ml) .steps li::before { content: "ഘട്ടം " counter(step); letter-spacing: 0; }
+/* Language switch: a slim strip above the sticky header, so it scrolls away and works at any width */
+.lang-bar { background: var(--leaf-deep); }
+.lang-bar .wrap { display: flex; justify-content: flex-end; padding-block: 0.25rem; }
+.lang-bar nav { display: inline-flex; gap: 0.25rem; }
+.lang-bar a { padding: 0.25rem 0.75rem; border-radius: 999px; color: #fff; font-size: 0.85rem; font-weight: 500; line-height: 1.3; text-decoration: none; }
+.lang-bar a:hover { background: rgb(255 255 255 / 0.15); }
+.lang-bar a[aria-current] { background: #fff; color: var(--leaf-deep); }
+.lang-bar a:lang(kn) { font-family: var(--f-kn), var(--f-body); }
+.lang-bar a:lang(ml) { font-family: var(--f-ml), var(--f-body); }
 /* Content pages: who wrote it and when it was last updated */
 .byline { margin: 0; color: var(--ink-soft); font-size: 0.85rem; }
 /* Health Tips index: one card per article (video still + summary) */

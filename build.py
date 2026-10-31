@@ -25,6 +25,7 @@ import subprocess
 import datetime
 from html import escape as html_escape, unescape as html_unescape
 import sys
+from urllib.parse import quote
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = "https://www.ayuremedy.com"
@@ -128,6 +129,19 @@ NAV = [
 ]
 
 
+# Languages in the site-wide switch. English has no path prefix; the others live under /kn/ and /ml/.
+LANGS = [("en-IN", "English"), ("kn-IN", "ಕನ್ನಡ"), ("ml-IN", "മലയാളം")]
+# Fixed buttons on translated pages. The menus and footer stay in English, like most of the pages they link to.
+UI = {
+    "kn-IN": {"Book Appointment": "ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್", "Call": "ಕರೆ", "WhatsApp": "ವಾಟ್ಸ್‌ಆ್ಯಪ್", "Book": "ಬುಕ್",
+              "WhatsApp a doctor": "ವೈದ್ಯರಿಗೆ ವಾಟ್ಸ್‌ಆ್ಯಪ್ ಮಾಡಿ"},
+    "ml-IN": {"Book Appointment": "അപ്പോയിന്റ്മെന്റ്", "Call": "വിളിക്കൂ", "WhatsApp": "വാട്സ്ആപ്പ്", "Book": "ബുക്ക്",
+              "WhatsApp a doctor": "ഡോക്ടർക്ക് വാട്സ്ആപ്പ് ചെയ്യൂ"},
+}
+# English path -> {language: translated path}; filled in by main() from each translated page's "alt" field.
+TRANSLATIONS = {}
+
+
 def read(path):
     with open(path, encoding="utf-8") as f:
         return f.read()
@@ -229,6 +243,28 @@ def breadcrumbs(body, path):
         for i, (name, url) in enumerate(items, 1)]}
 
 
+def lang_bar(lang, versions):
+    """The language switch: same page in the other language if it exists, otherwise that language's home."""
+    links = []
+    for code, label in LANGS:
+        short = code[:2]
+        target = versions.get(code, "" if code == "en-IN" else short + "/")
+        links.append('<a href="@/{}" hreflang="{}" lang="{}"{}>{}</a>'.format(
+            target, short, short, ' aria-current="true"' if code == lang else "", label))
+    return ('<div class="lang-bar"><div class="wrap"><nav aria-label="Language">{}</nav></div></div>'
+            .format("".join(links)))
+
+
+def localise(chrome, lang):
+    """Point the shared header and footer at this language's pages and translate the fixed buttons."""
+    for en_path, group in TRANSLATIONS.items():
+        if lang in group:
+            chrome = chrome.replace('href="@/{}"'.format(en_path), 'href="@/{}"'.format(group[lang]))
+    for en_label, label in UI[lang].items():
+        chrome = chrome.replace(">{}</a>".format(en_label), ">{}</a>".format(label))
+    return chrome
+
+
 def build_page(layout, meta, body):
     body = body.replace("<!--aside-->", ASIDE)
     layout = (layout
@@ -265,26 +301,31 @@ def build_page(layout, meta, body):
                      'gtag("js",new Date());gtag("config","{0}",{{allow_google_signals:false,'
                      'allow_ad_personalization_signals:false}});</script>').format(GA_ID)
     lang = meta.get("lang", "en-IN")
-    alternates = ""
-    if meta.get("alt"):
-        # Pages that exist in English and Kannada point at each other so Google shows the right one.
-        other = "" if meta["alt"] == "/" else meta["alt"]
-        en_path, kn_path = (other, path) if lang.startswith("kn") else (path, other)
-        alternates = ('<link rel="alternate" hreflang="en-IN" href="{0}/{1}">\n'
-                      '<link rel="alternate" hreflang="kn-IN" href="{0}/{2}">\n'
-                      '<link rel="alternate" hreflang="x-default" href="{0}/{1}">').format(SITE, en_path, kn_path)
+    base = meta["alt"].lstrip("/") if meta.get("alt") else path
+    # The 404 page has no address of its own, so it stays out of the language groups.
+    versions = {"en-IN": base, **TRANSLATIONS[base]} if meta.get("nav") != "404" and base in TRANSLATIONS else {}
+    # Pages that exist in several languages point at each other so Google shows the right one.
+    alternates = "\n".join('<link rel="alternate" hreflang="{}" href="{}/{}">'.format(code, SITE, p)
+                           for code, p in versions.items())
+    if versions:
+        alternates += '\n<link rel="alternate" hreflang="x-default" href="{}/{}">'.format(SITE, base)
+    # The full Malayalam font only loads on Malayalam pages; elsewhere just the letters of the switch label.
+    ml_font = ("wght@400;500;600;700" if lang == "ml-IN" else "wght@500&text=" + quote(LANGS[2][1]))
     if "<!--byline-->" in body:
         d = datetime.date.fromisoformat(meta.get("_updated", datetime.date.today().isoformat()))
         body = body.replace("<!--byline-->", '<p class="byline">Written by the AyurRemedy clinical team · Updated {} {} {}</p>'
                             .format(d.day, d.strftime("%B"), d.year))
-    html = (layout
+    chrome = layout.replace("{{nav}}", nav_html).replace("{{menu}}", menu_html)
+    if lang != "en-IN":
+        chrome = localise(chrome, lang)
+    html = (chrome
             .replace("{{lang}}", lang)
+            .replace("{{lang_bar}}", lang_bar(lang, versions))
+            .replace("{{ml_font}}", ml_font)
             .replace("{{alternates}}", alternates)
             .replace("{{title}}", meta["title"])
             .replace("{{description}}", meta["description"])
             .replace("{{canonical}}", SITE + "/" + path)
-            .replace("{{nav}}", nav_html)
-            .replace("{{menu}}", menu_html)
             .replace("{{schema}}", schema)
             .replace("{{analytics}}", analytics)
             .replace("{{body}}", body))
@@ -302,6 +343,10 @@ def main():
     layout = read(os.path.join(ROOT, "src", "layout.html"))
     urls = []
     pages_dir = os.path.join(ROOT, "src", "pages")
+    for name in sorted(os.listdir(pages_dir)):
+        meta = parse_page(read(os.path.join(pages_dir, name)))[0] if name.endswith(".html") else {}
+        if meta.get("lang") and meta.get("alt"):
+            TRANSLATIONS.setdefault(meta["alt"].lstrip("/"), {})[meta["lang"]] = meta["path"]
     for name in sorted(os.listdir(pages_dir)):
         if not name.endswith(".html"):
             continue

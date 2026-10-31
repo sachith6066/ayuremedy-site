@@ -1,0 +1,108 @@
+title: അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യൂ | ആയുർറെമഡി, രാമമൂർത്തി നഗർ
+description: ഡോ. രശ്മി ജോൺസൺ അല്ലെങ്കിൽ ഡോ. ഹർഷിത റായ് എന്നിവരുമായി അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യൂ. വിവരങ്ങൾ വാട്സ്ആപ്പിൽ അയയ്ക്കൂ; ക്ലിനിക്കിൽ നിന്ന് വിളിച്ച് സമയം ഉറപ്പിക്കും.
+path: ml/book-appointment/
+nav: book
+lang: ml-IN
+alt: book-appointment/
+---
+<section class="page-head">
+  <div class="wrap stack">
+    <p class="crumbs"><a href="@/ml/">ഹോം</a> / അപ്പോയിന്റ്മെന്റ്</p>
+    <h1>അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യൂ</h1>
+    <p class="lede">നിങ്ങളുടെ വിവരങ്ങൾ പൂരിപ്പിച്ച് അയയ്ക്കൂ. വാട്സ്ആപ്പ് തുറക്കും; അവിടെ "അയയ്ക്കുക" അമർത്തിയാൽ ക്ലിനിക്കിൽ നിന്ന് നിങ്ങളെ വിളിച്ച് സമയം ഉറപ്പിക്കും.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap contact-grid">
+    <form class="form" id="visit-form" novalidate
+      data-msg-error="നിങ്ങളെ തിരികെ വിളിക്കാൻ ദയവായി പേരും 10 അക്ക ഫോൺ നമ്പറും നൽകുക."
+      data-msg-ready="നിങ്ങളുടെ അഭ്യർത്ഥന വാട്സ്ആപ്പിൽ തയ്യാറാണ്. അവിടെ &quot;അയയ്ക്കുക&quot; അമർത്തുക; റിസപ്ഷനിൽ നിന്ന് വിളിച്ച് സമയം ഉറപ്പിക്കും. വാട്സ്ആപ്പ് തുറക്കുന്നില്ലെങ്കിൽ, &lt;a href=&quot;{url}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;ഇവിടെ തുറക്കുക&lt;/a&gt; അല്ലെങ്കിൽ 080-4854 2888-ൽ വിളിക്കുക.">
+      <h2 id="book" style="font-size:var(--step-2)">അപ്പോയിന്റ്മെന്റ് അഭ്യർത്ഥന</h2>
+      <div class="field-row">
+        <div class="field">
+          <label for="visit-name">നിങ്ങളുടെ പേര്</label>
+          <input id="visit-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="visit-phone">ഫോൺ നമ്പർ</label>
+          <input id="visit-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="10 അക്ക മൊബൈൽ നമ്പർ">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="visit-date">താൽപ്പര്യമുള്ള തീയതി</label>
+          <input id="visit-date" name="date" type="date">
+        </div>
+        <div class="field">
+          <label for="visit-slot">താൽപ്പര്യമുള്ള സമയം</label>
+          <select id="visit-slot" name="slot">
+            <option value="Morning">രാവിലെ</option>
+            <option value="Afternoon">ഉച്ചയ്ക്ക്</option>
+            <option value="Evening">വൈകിട്ട്</option>
+            <option value="Any time">ഏത് സമയവും</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="visit-doctor">ഡോക്ടർ</label>
+          <select id="visit-doctor" name="doctor">
+            <option value="No preference">ആരായാലും മതി</option>
+            <option value="Dr Rasmi Johnson">ഡോ. രശ്മി ജോൺസൺ</option>
+            <option value="Dr Harshitha Rai">ഡോ. ഹർഷിത റായ്</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="visit-calltime">നിങ്ങളെ വിളിക്കാൻ പറ്റിയ സമയം</label>
+          <select id="visit-calltime" name="calltime">
+            <option value="Any time">ഏത് സമയവും</option>
+            <option value="Morning">രാവിലെ</option>
+            <option value="Afternoon">ഉച്ചയ്ക്ക്</option>
+            <option value="Evening">വൈകിട്ട്</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="visit-reason">സന്ദർശനത്തിന്റെ കാരണം <span class="hint">(നിർബന്ധമില്ല)</span></label>
+        <textarea id="visit-reason" name="reason" placeholder="ഉദാ: 3 മാസമായി നടുവേദന"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" type="submit">വാട്സ്ആപ്പിൽ അഭ്യർത്ഥന അയയ്ക്കൂ</button>
+      </div>
+      <p class="form-msg" id="visit-form-msg" aria-live="polite">നിങ്ങൾ "അയയ്ക്കുക" അമർത്തുമ്പോൾ മാത്രമേ വിവരങ്ങൾ ക്ലിനിക്കിന്റെ വാട്സ്ആപ്പിലേക്ക് പോകൂ.</p>
+      <p class="small muted">നിങ്ങളുടെ വിവരങ്ങൾ ഞങ്ങൾ എങ്ങനെ ഉപയോഗിക്കുന്നു എന്നറിയാൻ ഞങ്ങളുടെ <a href="@/privacy-policy/" hreflang="en">സ്വകാര്യതാ നയം (ഇംഗ്ലീഷ്)</a> കാണുക.</p>
+    </form>
+    <div class="nap">
+      <div class="stack">
+        <p class="eyebrow">വിളിക്കാനാണോ ഇഷ്ടം?</p>
+        <p>ഫോൺ: <a href="tel:+918048542888">080-4854 2888</a></p>
+        <p>മൊബൈലും വാട്സ്ആപ്പും: <a href="tel:+919448150492">+91 94481 50492</a></p>
+      </div>
+      <div class="stack">
+        <p class="eyebrow">സമയം</p>
+        <table class="schedule">
+          <tr><th>തിങ്കൾ – ശനി</th><td>രാവിലെ 9:00 – രാത്രി 8:00</td></tr>
+          <tr><th>ഞായർ</th><td>രാവിലെ 9:00 – ഉച്ചയ്ക്ക് 1:00</td></tr>
+        </table>
+        <p class="small muted">ഡോക്ടർമാരുടെ കൺസൾട്ടേഷൻ സമയത്തിന് <a href="@/ml/contact-us/">ബന്ധപ്പെടാനുള്ള പേജ്</a> കാണുക.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="first-visit">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">ആദ്യ കൺസൾട്ടേഷൻ</p>
+      <h2 id="first-visit">ആദ്യ സന്ദർശനത്തിൽ എന്തെല്ലാം</h2>
+      <p class="muted">കൺസൾട്ടേഷൻ ഫീസ് ₹500 (ഓൺലൈൻ വീഡിയോ കൺസൾട്ടേഷൻ ₹600). ആദ്യ കൺസൾട്ടേഷനിൽ ഡോക്ടർ വിശദമായി പരിശോധിക്കും, അതിനാൽ കുറച്ച് അധിക സമയം കരുതുക.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>തയ്യാറായി വരൂ</h3><p>10 മിനിറ്റ് നേരത്തെ എത്തുക. പഴയ റിപ്പോർട്ടുകൾ, സ്കാനുകൾ, കുറിപ്പടികൾ, ഇപ്പോൾ കഴിക്കുന്ന എല്ലാ മരുന്നുകളുടെയും പട്ടിക എന്നിവ കൊണ്ടുവരിക.</p></li>
+      <li><h3>വിവരശേഖരണവും പരിശോധനയും</h3><p>ഡോക്ടർ നിങ്ങളുടെ ആരോഗ്യം, ഭക്ഷണം, ഉറക്കം, ദിനചര്യ എന്നിവയെക്കുറിച്ച് ചോദിച്ചറിയും, നാഡി പരിശോധന ഉൾപ്പെടെ നടത്തി നിങ്ങളുടെ പ്രകൃതി നിർണയിക്കും.</p></li>
+      <li><h3>ചികിത്സാ പദ്ധതി</h3><p>പ്രശ്നം വ്യക്തമായി വിശദീകരിച്ച്, മരുന്നുകളും ആവശ്യമെങ്കിൽ ചികിത്സകളും ഭക്ഷണ-ദിനചര്യ നിർദ്ദേശങ്ങളും നൽകും. നിങ്ങളുടെ സമ്മതമില്ലാതെ ഒന്നും തുടങ്ങില്ല.</p></li>
+      <li><h3>തുടർസന്ദർശനം</h3><p>മിക്ക പ്രശ്നങ്ങൾക്കും പുരോഗതി വിലയിരുത്താൻ തുടർസന്ദർശനം ആവശ്യമാണ്. മറ്റ് ഡോക്ടർമാർ നൽകിയ മരുന്നുകൾ അവർ പറയാതെ നിർത്തരുത്.</p></li>
+    </ol>
+  </div>
+</section>
