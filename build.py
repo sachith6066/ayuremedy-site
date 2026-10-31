@@ -23,7 +23,7 @@ import hashlib
 import shutil
 import subprocess
 import datetime
-from html import escape as html_escape
+from html import escape as html_escape, unescape as html_unescape
 import sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -46,6 +46,9 @@ CLINIC = {
     "email": "info@ayuremedy.com",
     "priceRange": "₹₹",
     "medicalSpecialty": "Ayurveda",
+    "availableService": [{"@type": "MedicalTherapy", "name": n} for n in (
+        "Panchakarma", "Shirodhara", "Abhyanga", "Kati Vasti", "Janu Vasti",
+        "Kshara Sutra", "Agnikarma", "Swarnabindu Prashana")],
     "address": {
         "@type": "PostalAddress",
         "streetAddress": "#38, Sai Krishna Apartment, TC Palya Main Road, near NeuroCyte Stem Cell",
@@ -110,7 +113,7 @@ NAV = [
         ("protocol", "Our Protocol", "@/our-protocol/"),
         ("panchakarma", "Panchakarma Treatments", "@/panchakarma-treatments/"),
         ("classical", "Other Classical Treatments", "@/other-classical-treatments/"),
-        ("parasurgical", "Para Surgical Procedures", "@/para-surgical-procedures/"),
+        ("parasurgical", "Kshara Sutra & Para Surgical", "@/para-surgical-procedures/"),
         ("wound", "Wound Management", "@/wound-management/"),
         ("cosmetic", "Cosmetic Treatment", "@/cosmetic-treatment/"),
         ("hydra", "Ayurvedic Hydra Facial", "@/ayurvedic-hydra-facial/"),
@@ -184,7 +187,7 @@ ASIDE = """<aside class="aside" aria-label="Book and explore">
     <li><a href="@/our-protocol/">Our Protocol</a></li>
     <li><a href="@/panchakarma-treatments/">Panchakarma Treatments</a></li>
     <li><a href="@/other-classical-treatments/">Other Classical Treatments</a></li>
-    <li><a href="@/para-surgical-procedures/">Para Surgical Procedures</a></li>
+    <li><a href="@/para-surgical-procedures/">Kshara Sutra Treatment</a></li>
     <li><a href="@/wound-management/">Wound Management</a></li>
     <li><a href="@/cosmetic-treatment/">Cosmetic Treatment</a></li>
     <li><a href="@/ayurvedic-hydra-facial/">Ayurvedic Hydra Facial</a></li>
@@ -206,6 +209,24 @@ def asset_version(rel):
     """Short content hash, appended to asset links so browsers fetch new copies after a change."""
     with open(os.path.join(ROOT, rel), "rb") as f:
         return hashlib.sha1(f.read()).hexdigest()[:8]
+
+
+def breadcrumbs(body, path):
+    """BreadcrumbList built from the page's visible crumbs, so the two always match."""
+    m = re.search(r'<p class="crumbs">(.*?)</p>', body)
+    if not m:
+        return None
+    items = []
+    parts = m.group(1).split(" / ")
+    for i, part in enumerate(parts):
+        link = re.match(r'<a href="@/(.*?)">(.*?)</a>$', part.strip())
+        if link:
+            items.append((link.group(2), SITE + "/" + link.group(1)))
+        elif i == len(parts) - 1:
+            items.append((re.sub(r"<.*?>", "", part).strip(), SITE + "/" + path))
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": i, "name": html_unescape(name), "item": url}
+        for i, (name, url) in enumerate(items, 1)]}
 
 
 def build_page(layout, meta, body):
@@ -233,7 +254,9 @@ def build_page(layout, meta, body):
             menu_parts.append('<a href="{}">{}</a>'.format(href, label))
     menu_parts.append('<a href="@/book-appointment/">Book Appointment</a>')
     nav_html, menu_html = "\n".join(nav_parts), "\n".join(menu_parts)
-    schema = json.dumps([WEBSITE, CLINIC] if path == "" else CLINIC, ensure_ascii=False, indent=1)
+    crumbs = breadcrumbs(body, path)
+    nodes = [WEBSITE, CLINIC] if path == "" else [CLINIC, crumbs] if crumbs else CLINIC
+    schema = json.dumps(nodes, ensure_ascii=False, indent=1)
     analytics = ""
     if GA_ID and not PREVIEW:
         # Google signals and ad personalisation stay off: this is a clinic site, so no audience building.
